@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developers Group - Learn to Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #04AA6D;
+    --green-dark: #028a57;
+    --green-light: #06c97e;
+    --dark: #0a0e17;
+    --dark2: #111827;
+    --dark3: #1a2235;
+    --gray: #6b7280;
+    --light: #f3f4f6;
+    --white: #ffffff;
+    --accent: #00e5ff;
+    --accent2: #7c3aed;
+    --navbar-h: 56px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    background: var(--white);
+    color: #222;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAVBAR ===== */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--dark);
+    height: var(--navbar-h);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+    border-bottom: 2px solid var(--green);
+    box-shadow: 0 2px 24px rgba(4,170,109,0.18);
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: -1px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    gap: 2px;
+    margin-left: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .nav-links a {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    background: var(--green);
+    color: white;
+  }
+
+  .nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .nav-search {
+    background: #1e2a3a;
+    border: 1px solid #2d3748;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: #ccc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    width: 180px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .nav-search:focus { border-color: var(--green); }
+  .nav-search::placeholder { color: #555; }
+
+  .btn-cert {
+    background: var(--green);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-cert:hover { background: var(--green-dark); }
+
+  /* ===== TOPIC BAR ===== */
+  .topic-bar {
+    background: var(--dark2);
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid #1e2a3a;
+  }
+
+  .topic-bar::-webkit-scrollbar { display: none; }
+
+  .topic-bar-inner {
+    display: flex;
+    gap: 0;
+    min-width: max-content;
+  }
+
+  .topic-bar a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 10px 14px;
+    display: inline-block;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+
+  .topic-bar a:hover {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: var(--dark);
+    padding: 72px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(4,170,109,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,229,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(4,170,109,0.06) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(4,170,109,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.05;
+    position: relative;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green);
+    position: relative;
+    display: inline-block;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { text-shadow: 0 0 20px rgba(4,170,109,0.4); }
+    50% { text-shadow: 0 0 40px rgba(4,170,109,0.8), 0 0 80px rgba(4,170,109,0.3); }
+  }
+
+  .hero p {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    color: #9ca3af;
+    margin-bottom: 40px;
+    position: relative;
+    font-weight: 400;
+  }
+
+  .hero-search-wrap {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+
+  .hero-search {
+    width: 100%;
+    padding: 16px 60px 16px 24px;
+    border-radius: 50px;
+    border: 2px solid #2d3748;
+    background: #111827;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: #e5e7eb;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-search:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(4,170,109,0.12);
+  }
+
+  .hero-search-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--green);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .hero-search-btn:hover { background: var(--green-dark); }
+  .hero-search-btn svg { fill: white; width: 18px; height: 18px; }
+
+  .hero-chips {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #2d3748;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    text-decoration: none;
+  }
+
+  .chip:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(4,170,109,0.08);
+  }
+
+  /* ===== SECTION TITLES ===== */
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .section-sub {
+    color: var(--gray);
+    font-size: 0.95rem;
+    margin-bottom: 36px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ===== LANG CARDS ===== */
+  .langs-section {
+    padding: 72px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .lang-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+
+  .lang-card {
+    border: 1.5px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s;
+    background: white;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .lang-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--card-color, var(--green));
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+
+  .lang-card:hover {
+    border-color: var(--card-color, var(--green));
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+  }
+
+  .lang-card:hover::before { transform: scaleX(1); }
+
+  .lang-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 16px;
+    background: var(--card-color, var(--green));
+    letter-spacing: -1px;
+  }
+
+  .lang-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+
+  .lang-card p {
+    font-size: 0.82rem;
+    color: var(--gray);
+    line-height: 1.5;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .lang-card-links {
+    margin-top: 14px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--card-color, var(--green));
+    text-decoration: none;
+    border: 1px solid currentColor;
+    padding: 3px 8px;
+    border-radius: 4px;
+    transition: all 0.15s;
+  }
+
+  .tag-link:hover {
+    background: var(--card-color, var(--green));
+    color: white;
+  }
+
+  /* ===== CODE SHOWCASE ===== */
+  .code-showcase {
+    background: var(--dark);
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .code-showcase::before {
+    content: '</>';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Space Mono', monospace;
+    font-size: 14rem;
+    color: rgba(4,170,109,0.04);
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  .code-showcase-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .code-showcase-inner { grid-template-columns: 1fr; }
+  }
+
+  .code-showcase .section-title { color: white; }
+  .code-showcase .section-sub { color: #6b7280; }
+
+  .code-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 0;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+  }
+
+  .code-tab {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    padding: 10px 18px;
+    cursor: pointer;
+    background: #1a2235;
+    color: #6b7280;
+    border: none;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .code-tab.active, .code-tab:hover {
+    background: #0f172a;
+    color: var(--green);
+  }
+
+  .code-block {
+    background: #0f172a;
+    border-radius: 0 10px 10px 10px;
+    padding: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+    position: relative;
+    border: 1px solid #1e2a3a;
+    min-height: 200px;
+  }
+
+  .code-block pre { white-space: pre-wrap; }
+  .kw { color: #7dd3fc; }
+  .str { color: #86efac; }
+  .tag { color: #f87171; }
+  .attr { color: #fbbf24; }
+  .val { color: #86efac; }
+  .cm { color: #4b5563; }
+  .fn { color: #c084fc; }
+  .num { color: #fb923c; }
+
+  .try-btn {
+    margin-top: 16px;
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .try-btn:hover { background: var(--green-dark); }
+
+  /* ===== SERVICES GRID ===== */
+  .services-section {
+    padding: 80px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .service-card {
+    padding: 28px;
+    border-radius: 14px;
+    background: var(--dark2);
+    color: white;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: 1.5px solid #1e2a3a;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .service-card:hover {
+    border-color: var(--green);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(4,170,109,0.15);
+  }
+
+  .service-icon {
+    font-size: 2rem;
+    display: block;
+  }
+
+  .service-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: white;
+  }
+
+  .service-card p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: #6b7280;
+    line-height: 1.6;
+  }
+
+  /* ===== BANNER ===== */
+  .cert-banner {
+    background: linear-gradient(135deg, #04AA6D 0%, #028a57 50%, #01673f 100%);
+    padding: 64px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cert-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .cert-banner h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    position: relative;
+  }
+
+  .cert-banner p {
+    color: rgba(255,255,255,0.8);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cert-badge {
+    display: inline-block;
+    background: white;
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 10px 28px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .cert-badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  /* ===== SMALL LANG GRID ===== */
+  .more-langs {
+    padding: 48px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+
+  .more-item {
+    text-decoration: none;
+    color: var(--dark);
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 16px 10px;
+    text-align: center;
+    transition: all 0.2s;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+  }
+
+  .more-item:hover {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(4,170,109,0.04);
+    transform: translateY(-2px);
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    padding: 64px 24px 32px;
+    color: #6b7280;
+  }
+
+  .footer-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: white;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-col a {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: #6b7280;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--green); }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid #1e2a3a;
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 16px;
+  }
+
+  .footer-logo {
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: -1px;
+  }
+
+  .footer-logo span { color: var(--green); }
+
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: #4b5563;
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > * { animation: fadeUp 0.6s ease both; }
+  .hero h1 { animation-delay: 0.1s; }
+  .hero p { animation-delay: 0.2s; }
+  .hero-search-wrap { animation-delay: 0.3s; }
+  .hero-chips { animation-delay: 0.4s; }
+
+  /* Cursor glow effect */
+  .lang-card:hover .lang-icon {
+    box-shadow: 0 0 20px var(--card-color, var(--green));
+  }
+
+  /* ===== STICKY ASIDE ===== */
+  .login-strip {
+    background: var(--dark3);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    border-top: 1px solid #1e2a3a;
+    border-bottom: 1px solid #1e2a3a;
+  }
+
+  .login-strip p {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    color: #d1d5db;
+    font-weight: 600;
+  }
+
+  .login-strip p span { color: var(--green); }
+
+  .login-strip-btns { display: flex; gap: 10px; }
+
+  .btn-outline {
+    border: 1.5px solid var(--green);
+    color: var(--green);
+    background: transparent;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover { background: var(--green); color: white; }
+
+  .btn-solid {
+    border: 1.5px solid var(--green);
+    color: white;
+    background: var(--green);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-solid:hover { background: var(--green-dark); }
+
+  /* responsive */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .code-showcase-inner { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo"><span>Dev</span>Group</div>
+  <div class="nav-links">
+    <a href="#">Tutorials</a>
+    <a href="#">References</a>
+    <a href="#">Exercises</a>
+    <a href="#">Certificates</a>
+    <a href="#">Services</a>
+  </div>
+  <div class="nav-right">
+    <input class="nav-search" type="text" placeholder="Search...">
+    <a href="#" class="btn-cert">Get Certified</a>
+  </div>
+</nav>
+
+<!-- TOPIC BAR -->
+<div class="topic-bar">
+  <div class="topic-bar-inner">
+    <a href="#">HTML</a>
+    <a href="#">CSS</a>
+    <a href="#">JAVASCRIPT</a>
+    <a href="#">SQL</a>
+    <a href="#">PYTHON</a>
+    <a href="#">JAVA</a>
+    <a href="#">PHP</a>
+    <a href="#">REACT</a>
+    <a href="#">C++</a>
+    <a href="#">C#</a>
+    <a href="#">BOOTSTRAP</a>
+    <a href="#">MYSQL</a>
+    <a href="#">JQUERY</a>
+    <a href="#">TYPESCRIPT</a>
+    <a href="#">ANGULAR</a>
+    <a href="#">NODE.JS</a>
+    <a href="#">DSA</a>
+    <a href="#">MONGODB</a>
+    <a href="#">GIT</a>
+    <a href="#">AI</a>
+    <a href="#">GO</a>
+    <a href="#">KOTLIN</a>
+    <a href="#">RUST</a>
+    <a href="#">BASH</a>
+    <a href="#">SWIFT</a>
+    <a href="#">DJANGO</a>
+    <a href="#">VUE</a>
+    <a href="#">NUMPY</a>
+    <a href="#">PANDAS</a>
+    <a href="#">SCIPY</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <h1>Learn to <em>Code</em></h1>
+  <p>With the world's largest developer learning platform.</p>
+  <div class="hero-search-wrap">
+    <input class="hero-search" type="text" placeholder="Search tutorials, docs, references...">
+    <button class="hero-search-btn">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.7 20.3l-5.4-5.4a8 8 0 1 0-1.4 1.4l5.4 5.4 1.4-1.4zM10 16a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+      </svg>
+    </button>
+  </div>
+  <div class="hero-chips">
+    <a href="#" class="chip">Not sure where to start?</a>
+    <a href="#" class="chip">HTML</a>
+    <a href="#" class="chip">Python</a>
+    <a href="#" class="chip">JavaScript</a>
+    <a href="#" class="chip">SQL</a>
+    <a href="#" class="chip">React</a>
+    <a href="#" class="chip">CSS</a>
+  </div>
+</section>
+
+<!-- MAIN LANG CARDS -->
+<section class="langs-section">
+  <h2 class="section-title">Core Languages</h2>
+  <p class="section-sub">// start your learning journey</p>
+  <div class="lang-grid">
+
+    <div class="lang-card" style="--card-color:#e34c26">
+      <div class="lang-icon" style="background:#e34c26">HTML</div>
+      <h3>HTML</h3>
+      <p>The language for building web pages</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#e34c26;border-color:#e34c26">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#e34c26;border-color:#e34c26">Reference</a>
+        <a href="#" class="tag-link" style="color:#e34c26;border-color:#e34c26">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#264de4">
+      <div class="lang-icon" style="background:#264de4">CSS</div>
+      <h3>CSS</h3>
+      <p>The language for styling web pages</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#264de4;border-color:#264de4">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#264de4;border-color:#264de4">Reference</a>
+        <a href="#" class="tag-link" style="color:#264de4;border-color:#264de4">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#f7df1e">
+      <div class="lang-icon" style="background:#f7df1e;color:#222">JS</div>
+      <h3>JavaScript</h3>
+      <p>The language for programming web pages</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#b5a800;border-color:#b5a800">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#b5a800;border-color:#b5a800">Reference</a>
+        <a href="#" class="tag-link" style="color:#b5a800;border-color:#b5a800">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#3776ab">
+      <div class="lang-icon" style="background:#3776ab">PY</div>
+      <h3>Python</h3>
+      <p>A popular general-purpose programming language</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#3776ab;border-color:#3776ab">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#3776ab;border-color:#3776ab">Reference</a>
+        <a href="#" class="tag-link" style="color:#3776ab;border-color:#3776ab">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#f29111">
+      <div class="lang-icon" style="background:#f29111">SQL</div>
+      <h3>SQL</h3>
+      <p>A language for accessing and manipulating databases</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#f29111;border-color:#f29111">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#f29111;border-color:#f29111">Reference</a>
+        <a href="#" class="tag-link" style="color:#f29111;border-color:#f29111">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#04AA6D">
+      <div class="lang-icon" style="background:#04AA6D">PHP</div>
+      <h3>PHP</h3>
+      <p>A web server-side scripting language</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#04AA6D;border-color:#04AA6D">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#04AA6D;border-color:#04AA6D">Reference</a>
+        <a href="#" class="tag-link" style="color:#04AA6D;border-color:#04AA6D">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#007396">
+      <div class="lang-icon" style="background:#007396">JAVA</div>
+      <h3>Java</h3>
+      <p>A robust, object-oriented programming language</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#007396;border-color:#007396">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#007396;border-color:#007396">Reference</a>
+        <a href="#" class="tag-link" style="color:#007396;border-color:#007396">Certify</a>
+      </div>
+    </div>
+
+    <div class="lang-card" style="--card-color:#61dafb">
+      <div class="lang-icon" style="background:#61dafb;color:#222">RCT</div>
+      <h3>React</h3>
+      <p>A JavaScript library for building user interfaces</p>
+      <div class="lang-card-links">
+        <a href="#" class="tag-link" style="color:#0ea5e9;border-color:#0ea5e9">Tutorial</a>
+        <a href="#" class="tag-link" style="color:#0ea5e9;border-color:#0ea5e9">Certify</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CODE SHOWCASE -->
+<section class="code-showcase">
+  <div class="code-showcase-inner">
+    <div>
+      <h2 class="section-title">Write &amp; Run Code<br>Instantly</h2>
+      <p class="section-sub">// no setup required — learn by doing</p>
+      <p style="color:#9ca3af;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.7;margin-bottom:24px;">
+        Our interactive editor lets you write code and see live results in your browser. Practice exercises reinforce your learning at every step.
+      </p>
+      <a href="#" class="try-btn">Open Code Editor →</a>
+    </div>
+    <div>
+      <div class="code-tabs">
+        <button class="code-tab active" onclick="showTab('html')">HTML</button>
+        <button class="code-tab" onclick="showTab('css')">CSS</button>
+        <button class="code-tab" onclick="showTab('js')">JavaScript</button>
+        <button class="code-tab" onclick="showTab('py')">Python</button>
+      </div>
+      <div class="code-block" id="code-display">
+        <pre id="code-pre"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;title&gt;</span><span class="str">HTML Tutorial</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="tag">&lt;h1&gt;</span><span class="str">This is a heading</span><span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;p&gt;</span><span class="str">This is a paragraph.</span><span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+      </div>
+      <a href="#" class="try-btn" style="margin-top:12px">Try it Yourself →</a>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN STRIP -->
+<div class="login-strip">
+  <p>Track your progress — <span>create a free account</span> and unlock personalized learning paths.</p>
+  <div class="login-strip-btns">
+    <a href="#" class="btn-outline">Sign In</a>
+    <a href="#" class="btn-solid">Sign Up Free</a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <h2 class="section-title">All Our Services</h2>
+  <p class="section-sub">// tools and features for every developer</p>
+  <div class="services-grid">
+    <a href="#" class="service-card">
+      <span class="service-icon">📚</span>
+      <h3>Free Tutorials</h3>
+      <p>Enjoy our free tutorials like millions of other internet users since 1999</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">🏆</span>
+      <h3>Get Certified</h3>
+      <p>Document your knowledge and boost your career with certificates</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">🌐</span>
+      <h3>Create a Website</h3>
+      <p>Create and host your own website in the cloud — no setup required</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">💻</span>
+      <h3>Code Editor</h3>
+      <p>Write and run code directly in your browser with our online editor</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">🎓</span>
+      <h3>Bootcamps</h3>
+      <p>Intensive live sessions with passionate instructors, online</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">🎮</span>
+      <h3>Code Game</h3>
+      <p>Learn programming concepts while playing a fun browser game</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">📊</span>
+      <h3>Data Analytics</h3>
+      <p>Learn AI, ML, Data Science, NumPy, Pandas, and more</p>
+    </a>
+    <a href="#" class="service-card">
+      <span class="service-icon">🔐</span>
+      <h3>Cyber Security</h3>
+      <p>Learn ethical hacking, security principles and best practices</p>
+    </a>
+  </div>
+</section>
+
+<!-- MORE LANGUAGES -->
+<section class="more-langs">
+  <h2 class="section-title">Even More Languages</h2>
+  <p class="section-sub">// 50+ technologies to explore</p>
+  <div class="more-grid">
+    <a href="#" class="more-item">C</a>
+    <a href="#" class="more-item">C++</a>
+    <a href="#" class="more-item">C#</a>
+    <a href="#" class="more-item">R</a>
+    <a href="#" class="more-item">Kotlin</a>
+    <a href="#" class="more-item">Node.js</a>
+    <a href="#" class="more-item">JSON</a>
+    <a href="#" class="more-item">Vue</a>
+    <a href="#" class="more-item">MySQL</a>
+    <a href="#" class="more-item">XML</a>
+    <a href="#" class="more-item">Sass</a>
+    <a href="#" class="more-item">Icons</a>
+    <a href="#" class="more-item">RWD</a>
+    <a href="#" class="more-item">SVG</a>
+    <a href="#" class="more-item">Canvas</a>
+    <a href="#" class="more-item">Git</a>
+    <a href="#" class="more-item">Django</a>
+    <a href="#" class="more-item">MongoDB</a>
+    <a href="#" class="more-item">NumPy</a>
+    <a href="#" class="more-item">Pandas</a>
+    <a href="#" class="more-item">SciPy</a>
+    <a href="#" class="more-item">TypeScript</a>
+    <a href="#" class="more-item">Angular</a>
+    <a href="#" class="more-item">AngularJS</a>
+    <a href="#" class="more-item">Go</a>
+    <a href="#" class="more-item">Rust</a>
+    <a href="#" class="more-item">Swift</a>
+    <a href="#" class="more-item">Bash</a>
+    <a href="#" class="more-item">DSA</a>
+    <a href="#" class="more-item">AWS</a>
+    <a href="#" class="more-item">Gen AI</a>
+    <a href="#" class="more-item">Statistics</a>
+    <a href="#" class="more-item">Excel</a>
+    <a href="#" class="more-item">PostgreSQL</a>
+    <a href="#" class="more-item">ASP</a>
+    <a href="#" class="more-item">Bootstrap</a>
+    <a href="#" class="more-item">W3.CSS</a>
+    <a href="#" class="more-item">jQuery</a>
+  </div>
+</section>
+
+<!-- CERT BANNER -->
+<section class="cert-banner">
+  <h2>Kickstart Your Career</h2>
+  <p>Get certified by completing a course — show employers what you can do</p>
+  <a href="#" class="cert-badge">Get Certified Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Top Tutorials</h4>
+      <a href="#">HTML Tutorial</a>
+      <a href="#">CSS Tutorial</a>
+      <a href="#">JavaScript Tutorial</a>
+      <a href="#">SQL Tutorial</a>
+      <a href="#">Python Tutorial</a>
+      <a href="#">Bootstrap Tutorial</a>
+      <a href="#">PHP Tutorial</a>
+      <a href="#">Java Tutorial</a>
+      <a href="#">C++ Tutorial</a>
+    </div>
+    <div class="footer-col">
+      <h4>Top References</h4>
+      <a href="#">HTML Reference</a>
+      <a href="#">CSS Reference</a>
+      <a href="#">JavaScript Reference</a>
+      <a href="#">SQL Reference</a>
+      <a href="#">Python Reference</a>
+      <a href="#">W3.CSS Reference</a>
+      <a href="#">Bootstrap Reference</a>
+      <a href="#">PHP Reference</a>
+    </div>
+    <div class="footer-col">
+      <h4>Top Examples</h4>
+      <a href="#">HTML Examples</a>
+      <a href="#">CSS Examples</a>
+      <a href="#">JavaScript Examples</a>
+      <a href="#">SQL Examples</a>
+      <a href="#">Python Examples</a>
+      <a href="#">W3.CSS Examples</a>
+      <a href="#">Bootstrap Examples</a>
+      <a href="#">PHP Examples</a>
+    </div>
+    <div class="footer-col">
+      <h4>Certificates</h4>
+      <a href="#">HTML Certificate</a>
+      <a href="#">CSS Certificate</a>
+      <a href="#">JavaScript Certificate</a>
+      <a href="#">SQL Certificate</a>
+      <a href="#">Python Certificate</a>
+      <a href="#">PHP Certificate</a>
+      <a href="#">Java Certificate</a>
+      <a href="#">C++ Certificate</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo"><span>Dev</span>Group</div>
+    <div class="footer-copy">
+      Developers Group — Built for learners worldwide. Inspired by W3Schools. &copy; 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+  const codes = {
+    html: `<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;title&gt;</span><span class="str">HTML Tutorial</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="tag">&lt;h1&gt;</span><span class="str">This is a heading</span><span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;p&gt;</span><span class="str">This is a paragraph.</span><span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span>`,
+
+    css: `<span class="attr">body</span> {
+  <span class="kw">background-color</span>: <span class="str">lightblue</span>;
+}
+
+<span class="attr">h1</span> {
+  <span class="kw">color</span>: <span class="str">white</span>;
+  <span class="kw">text-align</span>: <span class="str">center</span>;
+}
+
+<span class="attr">p</span> {
+  <span class="kw">font-family</span>: <span class="str">verdana</span>;
+  <span class="kw">font-size</span>: <span class="num">20px</span>;
+}`,
+
+    js: `<span class="tag">&lt;button</span> <span class="attr">onclick</span>=<span class="str">"myFn()"</span><span class="tag">&gt;</span>Click Me!<span class="tag">&lt;/button&gt;</span>
+
+<span class="tag">&lt;script&gt;</span>
+<span class="kw">function</span> <span class="fn">myFn</span>() {
+  <span class="kw">let</span> x = document.<span class="fn">getElementById</span>(<span class="str">"demo"</span>);
+  x.style.fontSize = <span class="str">"25px"</span>;
+  x.style.color = <span class="str">"red"</span>;
+}
+<span class="tag">&lt;/script&gt;</span>`,
+
+    py: `<span class="cm"># Python example</span>
+<span class="kw">if</span> <span class="num">5</span> > <span class="num">2</span>:
+  <span class="fn">print</span>(<span class="str">"Five is greater!"</span>)
+
+<span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):
+  <span class="fn">print</span>(x)
+
+my_list = [<span class="str">"HTML"</span>, <span class="str">"CSS"</span>, <span class="str">"JS"</span>]
+<span class="fn">print</span>(my_list[<span class="num">0</span>])`
+  };
+
+  function showTab(lang) {
+    document.getElementById('code-pre').innerHTML = codes[lang];
+    document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
+
+
